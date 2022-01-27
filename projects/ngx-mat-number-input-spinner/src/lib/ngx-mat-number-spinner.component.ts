@@ -52,18 +52,15 @@ class _NgxMatNumberSpinnerBase implements OnDestroy {
   connectInputEl() {
     if (this._inputEl) {
       this._renderer.addClass(this._inputEl, 'ngx-mat-number-spinner-input');
-      if (this._mutationObserver) {
-        this._mutationObserver.observe(this._inputEl, {attributeFilter: ['min', 'max', 'step', 'disabled']});
-      }
+      this._mutationObserver.observe(this._inputEl, {attributeFilter: ['min', 'max', 'step', 'disabled']});
+      this.readInputElAttributes();
     }
   }
 
   disconnectInputEl() {
     if (this._inputEl) {
       this._renderer.removeClass(this._inputEl, 'ngx-mat-number-spinner-input');
-      if (this._mutationObserver) {
-        this._mutationObserver.disconnect();
-      }
+      this._mutationObserver.disconnect();
     }
     // reset values
     this._step = 1;
