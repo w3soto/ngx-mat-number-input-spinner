@@ -3,5 +3,4 @@
  */
 
 export * from './lib/ngx-mat-number-spinner.component';
-//export * from './lib/ngx-mat-number-spinner-input.directive';
 export * from './lib/ngx-mat-number-spinner.module';

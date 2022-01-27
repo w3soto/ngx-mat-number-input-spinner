@@ -23,4 +23,4 @@ import { MatRippleModule } from "@angular/material/core";
     NgxMatNumberDecrementSpinner
   ]
 })
-export class NgxMatNumberSpinnerModule { }
+export class NgxMatNumberInputSpinnerModule { }
