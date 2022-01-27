@@ -24,7 +24,7 @@ class _NgxMatNumberSpinnerBase {
   protected _max: number = Number.MAX_VALUE;
 
   protected _autoDelay: number = 500;
-  protected _autoRepeat: number = 20;
+  protected _autoRepeat: number = 25;
 
   private _autoTimeout: any;
   private _autoInterval: any;
