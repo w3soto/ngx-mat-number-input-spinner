@@ -11,7 +11,7 @@ import { MatButtonModule } from "@angular/material/button";
 
 import { AppComponent } from './app.component';
 
-import { NgxMatNumberSpinnerModule } from "ngx-mat-number-input-spinner";
+import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { NgxMatNumberSpinnerModule } from "ngx-mat-number-input-spinner";
     MatButtonModule,
     MatCardModule,
 
-    NgxMatNumberSpinnerModule
+    NgxMatNumberInputSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

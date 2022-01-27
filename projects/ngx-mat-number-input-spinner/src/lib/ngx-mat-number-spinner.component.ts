@@ -42,7 +42,7 @@ class _NgxMatNumberSpinnerBase {
         this._step = 1;
       }
       if (this._step < 1) {
-        this._precision = ('' + this._step).length - 2;
+        this._precision = ('' + this._step).indexOf('.') + 1; // get number of digits after decimal point
       }
       this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), null);
       this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), null);
