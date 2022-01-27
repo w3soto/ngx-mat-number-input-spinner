@@ -4,12 +4,16 @@
   <button
     class="ngx-mat-number-spinner-button ngx-mat-number-spinner-button--inc"
     matRipple
+    [matRippleDisabled]="disabled"
+    [disabled]="disabled"
     (mousedown)="mouseDown(1)"
     (mouseup)="mouseUp()"></button>
 
   <button
     class="ngx-mat-number-spinner-button ngx-mat-number-spinner-button--dec"
     matRipple
+    [matRippleDisabled]="disabled"
+    [disabled]="disabled"
     (mousedown)="mouseDown(-1)"
     (mouseup)="mouseUp()"></button>
 

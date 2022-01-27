@@ -37,6 +37,10 @@
       border-right: 5px solid transparent;
       border-top: 5px solid;
     }
+    &[disabled] {
+      cursor: default;
+      color: rgba(0, 0, 0, 0.38);
+    }
   }
 
   &-button--inc:after {

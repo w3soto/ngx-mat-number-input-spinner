@@ -1,21 +1,23 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Directive,
+  HostBinding,
   HostListener,
   Input,
   OnDestroy,
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import { coerceNumberProperty } from "@angular/cdk/coercion";
+import { coerceBooleanProperty, coerceNumberProperty } from "@angular/cdk/coercion";
 
 
 export type NgxMatNumberSpinnerSign = -1 | 1;
 
 
 @Directive({})
-class _NgxMatNumberSpinnerBase {
+class _NgxMatNumberSpinnerBase implements OnDestroy {
 
   protected _inputEl!: HTMLInputElement;
 
@@ -23,6 +25,7 @@ class _NgxMatNumberSpinnerBase {
   protected _precision: number = 0;
   protected _min: number | null = null;
   protected _max: number | null = null;
+  protected _disabled: boolean = false;
 
   protected _autoDelay: number = 500;
   protected _autoRepeat: number = 25;
@@ -30,36 +33,50 @@ class _NgxMatNumberSpinnerBase {
   private _autoTimeout: any;
   private _autoInterval: any;
 
-  constructor(
-    protected _renderer: Renderer2
-  ) {}
+  readonly _mutationObserver!: MutationObserver;
 
-  attachInputEl() {
+  constructor(
+    protected _renderer: Renderer2,
+    protected _cdr: ChangeDetectorRef
+  ) {
+    this._mutationObserver = new MutationObserver(mutations => {
+      this.readInputElAttributes();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoUpdate();
+    this.disconnectInputEl();
+  }
+
+  connectInputEl() {
     if (this._inputEl) {
       this._renderer.addClass(this._inputEl, 'ngx-mat-number-spinner-input');
-      this._step = coerceNumberProperty(this._inputEl.getAttribute('step'), 1);
-      if (this._step <= 0) {
-        this._step = 1;
+      if (this._mutationObserver) {
+        this._mutationObserver.observe(this._inputEl, {attributeFilter: ['min', 'max', 'step', 'disabled']});
       }
-      if (this._step < 1) {
-        this._precision = ('' + this._step).indexOf('.') + 1; // get number of digits after decimal point
-      }
-      this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), null);
-      this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), null);
     }
   }
 
-  detachInputEl() {
+  disconnectInputEl() {
     if (this._inputEl) {
       this._renderer.removeClass(this._inputEl, 'ngx-mat-number-spinner-input');
+      if (this._mutationObserver) {
+        this._mutationObserver.disconnect();
+      }
     }
+    // reset values
     this._step = 1;
     this._precision = 0;
     this._min = null;
     this._max = null;
+    this._disabled = false;
   }
 
   updateInputEl(sign: NgxMatNumberSpinnerSign) {
+    if (this._disabled) {
+      return;
+    }
     let value = sign * this._step + coerceNumberProperty(this._inputEl.value, 0);
     if (this._min != null && value < this._min) {
       value = this._min;
@@ -72,7 +89,25 @@ class _NgxMatNumberSpinnerBase {
     this._inputEl.dispatchEvent(new Event('input'));
   }
 
+  readInputElAttributes() {
+    this._step = coerceNumberProperty(this._inputEl.getAttribute('step'), 1);
+    if (this._step <= 0) {
+      this._step = 1;
+    }
+    if (this._step < 1) {
+      this._precision = ('' + this._step).indexOf('.') + 1; // get number of digits after decimal point
+    }
+    this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), null);
+    this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), null);
+    this._disabled = coerceBooleanProperty(this._inputEl.getAttribute('disabled'));
+
+    this._cdr.markForCheck();
+  }
+
   startAutoUpdate(sign: NgxMatNumberSpinnerSign) {
+    if (this._disabled) {
+      return;
+    }
     this.stopAutoUpdate();
     this._autoTimeout = setTimeout( () => {
       this._autoInterval = setInterval( () => {
@@ -92,13 +127,13 @@ class _NgxMatNumberSpinnerBase {
 @Directive({
   selector: '[ngxMatNumberIncrementSpinnerFor]'
 })
-export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase implements OnDestroy {
+export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase {
 
   @Input('ngxMatNumberIncrementSpinnerFor')
   set inputEl(el: HTMLInputElement) {
-    this.detachInputEl();
+    this.disconnectInputEl();
     this._inputEl = el;
-    this.attachInputEl();
+    this.connectInputEl();
   }
 
   @Input('ngxMatNumberIncrementSpinnerAutoDelay')
@@ -122,13 +157,13 @@ export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase imple
     this.stopAutoUpdate();
   }
 
-  constructor(_renderer: Renderer2) {
-    super(_renderer);
+  @HostBinding('disabled')
+  get disabled(): boolean {
+    return this._disabled;
   }
 
-  ngOnDestroy(): void {
-    this.stopAutoUpdate();
-    this.detachInputEl();
+  constructor(_renderer: Renderer2,_cdr: ChangeDetectorRef) {
+    super(_renderer, _cdr);
   }
 
 }
@@ -137,13 +172,13 @@ export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase imple
 @Directive({
   selector: '[ngxMatNumberDecrementSpinnerFor]'
 })
-export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase implements OnDestroy {
+export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase {
 
   @Input('ngxMatNumberDecrementSpinnerFor')
   set inputEl(el: HTMLInputElement) {
-    this.detachInputEl();
+    this.disconnectInputEl();
     this._inputEl = el;
-    this.attachInputEl();
+    this.connectInputEl();
   }
 
   @Input('ngxMatNumberDecrementSpinnerAutoDelay')
@@ -167,13 +202,13 @@ export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase imple
     this.stopAutoUpdate();
   }
 
-  constructor(_renderer: Renderer2) {
-    super(_renderer);
+  @HostBinding('disabled')
+  get disabled(): boolean {
+    return this._disabled;
   }
 
-  ngOnDestroy(): void {
-    this.stopAutoUpdate();
-    this.detachInputEl();
+  constructor(_renderer: Renderer2,_cdr: ChangeDetectorRef) {
+    super(_renderer, _cdr);
   }
 
 }
@@ -189,13 +224,13 @@ export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase imple
     'class': 'ngx-mat-number-spinner'
   }
 })
-export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase implements OnDestroy {
+export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase {
 
   @Input()
   set for(el: HTMLInputElement) {
-    this.detachInputEl();
+    this.disconnectInputEl();
     this._inputEl = el;
-    this.attachInputEl();
+    this.connectInputEl();
   }
 
   @Input()
@@ -208,13 +243,12 @@ export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase implements OnD
     this._autoRepeat = autoRepeat;
   }
 
-  constructor(_renderer: Renderer2) {
-    super(_renderer);
+  get disabled(): boolean {
+    return this._disabled;
   }
 
-  ngOnDestroy(): void {
-    this.stopAutoUpdate();
-    this.detachInputEl();
+  constructor(_renderer: Renderer2,_cdr: ChangeDetectorRef) {
+    super(_renderer, _cdr);
   }
 
   mouseDown(sign: NgxMatNumberSpinnerSign) {
