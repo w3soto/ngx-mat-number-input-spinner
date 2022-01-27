@@ -20,8 +20,9 @@ class _NgxMatNumberSpinnerBase {
   protected _inputEl!: HTMLInputElement;
 
   protected _step: number = 1;
-  protected _min: number = Number.MIN_VALUE;
-  protected _max: number = Number.MAX_VALUE;
+  protected _precision: number = 0;
+  protected _min: number | null = null;
+  protected _max: number | null = null;
 
   protected _autoDelay: number = 500;
   protected _autoRepeat: number = 25;
@@ -40,8 +41,11 @@ class _NgxMatNumberSpinnerBase {
       if (this._step <= 0) {
         this._step = 1;
       }
-      this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), Number.MIN_VALUE);
-      this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), Number.MAX_VALUE);
+      if (this._step < 1) {
+        this._precision = ('' + this._step).length - 2;
+      }
+      this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), null);
+      this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), null);
     }
   }
 
@@ -50,19 +54,20 @@ class _NgxMatNumberSpinnerBase {
       this._renderer.removeClass(this._inputEl, 'ngx-mat-number-spinner-input');
     }
     this._step = 1;
-    this._min = Number.MIN_VALUE;
-    this._max = Number.MAX_VALUE;
+    this._precision = 0;
+    this._min = null;
+    this._max = null;
   }
 
   updateInputEl(sign: NgxMatNumberSpinnerSign) {
-    let value = coerceNumberProperty(this._inputEl.value, 0) + sign * this._step;
-    if (value < this._min) {
+    let value = sign * this._step + coerceNumberProperty(this._inputEl.value, 0);
+    if (this._min != null && value < this._min) {
       value = this._min;
     }
-    if (value > this._max) {
+    if (this._max != null && value > this._max) {
       value = this._max;
     }
-    this._inputEl.value = '' + value;
+    this._inputEl.value = value.toFixed(this._precision);
     this._inputEl.dispatchEvent(new Event('change'));
     this._inputEl.dispatchEvent(new Event('input'));
   }
@@ -82,6 +87,7 @@ class _NgxMatNumberSpinnerBase {
   }
 
 }
+
 
 @Directive({
   selector: '[ngxMatNumberIncrementSpinnerFor]'
@@ -126,6 +132,7 @@ export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase imple
   }
 
 }
+
 
 @Directive({
   selector: '[ngxMatNumberDecrementSpinnerFor]'
