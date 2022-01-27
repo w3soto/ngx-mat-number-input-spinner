@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'demo';
+
+  numberStandardValue: number | null = null;
+
+  numberClassicValue: number | null = null;
+
+  numberCustomValue: number | null = null;
+
+  constructor() {
+  }
+
 }

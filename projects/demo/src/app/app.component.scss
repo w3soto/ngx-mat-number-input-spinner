@@ -1,0 +1,16 @@
+:host {
+  padding: 40px;
+  display: flex;
+  gap: 24px;
+
+  mat-card-content {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-content: stretch;
+    > * {
+      width: 250px;
+    }
+  }
+
+}
