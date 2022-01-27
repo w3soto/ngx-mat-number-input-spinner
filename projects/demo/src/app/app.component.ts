@@ -7,11 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  numberStandardValue: number | null = null;
-
-  numberClassicValue: number | null = null;
-
-  numberCustomValue: number | null = null;
+  numberValue: number | null = null;
 
   constructor() {
   }

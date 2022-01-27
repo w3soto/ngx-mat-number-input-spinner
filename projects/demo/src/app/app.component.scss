@@ -1,5 +1,5 @@
 :host {
-  padding: 40px;
+  padding: 24px;
   display: flex;
   gap: 24px;
 
@@ -9,7 +9,7 @@
     flex-direction: column;
     align-content: stretch;
     > * {
-      width: 250px;
+      width: 220px;
     }
   }
 

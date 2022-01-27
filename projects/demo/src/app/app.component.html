@@ -17,13 +17,15 @@
         step="1"
         min="-10"
         max="10"
-        [(ngModel)]="numberClassicValue">
+        [(ngModel)]="numberValue">
 
       <ngx-mat-number-spinner
         matSuffix
         [for]="numberInput"></ngx-mat-number-spinner>
 
     </mat-form-field>
+
+    <div>NgModel = {{ numberValue }}</div>
 
   </mat-card-content>
 </mat-card>
