@@ -1,27 +1,116 @@
 # NgxMatNumberInputSpinner
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+Number Spinner component for Angular Material
 
-## Development server
+[GitHub](https://github.com/w3soto/ngx-mat-number-input-spinner)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
+* Replace default browser spinner 
+* Custom buttons (prefix/suffix) for increment and decrement value 
+* Read step, min and max properties from input element
 
-## Code scaffolding
+![Screenshot](https://raw.githubusercontent.com/w3soto/ngx-mat-number-input-spinner/master/screenshot.png "Screenshot")
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
+```shell
+npm -i ngx-mat-number-input-spinner
+```
 
-## Build
+## Example
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Fro more details see *projects/demo* application
 
-## Running unit tests
+```typescript
+import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
+...
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+  imports: [
+    ...,
+    NgxMatNumberInputSpinnerModule,
+  ],
+  ...
+})
+class AppModule { ... }
 
-## Running end-to-end tests
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Basic template 
+```html
+<mat-form-field>
+  
+  <input
+    matInput
+    #myNumberInput
+    type="number"
+    step=".5"
+    min="-10"
+    max="10"
+    [(ngModel)]="myNumberInputValue">
 
-## Further help
+    <ngx-mat-number-spinner
+      matSuffix
+      [for]="myNumberInput">
+    </ngx-mat-number-spinner>
+    
+</mat-form-field>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Custom template 
+```html
+<mat-form-field>
+  
+  <input 
+    matInput 
+    #myCustomInput 
+    type="number" 
+    min="0" 
+    max="5" 
+    value="0">
+    
+  <button 
+    mat-icon-button 
+    color="primary" 
+    matPrefix 
+    [ngxMatNumberIncrementSpinnerFor]="myCustomInput">
+    <mat-icon>thumb_up</mat-icon>
+  </button>
+  
+  <button 
+    mat-icon-button 
+    color="warn" 
+    matSuffix 
+    [ngxMatNumberDecrementSpinnerFor]="myCustomInput">
+    <mat-icon>thumb_down</mat-icon>
+  </button>
+  
+</mat-form-field>
+```
+
+## Components
+ 
+* **ngx-mat-number-spinner**
+
+| @Input | Type | Default | Description |
+| ------ | ---- | ------- | ----------- |
+| **for** | HTMLInputElement | | HTML input element (required!) |
+| **autoDelay** | number | 500 | Delay timeout in milliseconds |
+| **autoRepeat** | number | 25 | Repeat interval in milliseconds |
+
+## Directives 
+
+* **ngxMatNumberIncrementSpinnerFor**
+
+| @Input | Type | Default | Description |
+| ------ | ---- | ------- | ----------- |
+| **ngxMatNumberIncrementSpinnerFor** | HTMLInputElement | | HTML input element (required!) |
+| **ngxMatNumberIncrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
+| **ngxMatNumberIncrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
+
+* **ngxMatNumberDecrementSpinnerFor**
+
+| @Input | Type | Default | Description |
+| ------ | ---- | ------- | ----------- |
+| **ngxMatNumberDecrementSpinnerFor** | HTMLInputElement | | HTML input element (required!) |
+| **ngxMatNumberDecrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
+| **ngxMatNumberDecrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
