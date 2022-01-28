@@ -20,7 +20,7 @@ npm -i ngx-mat-number-input-spinner
 
 ## Example
 
-Fro more details see *projects/demo* application
+For more details see *projects/demo* application
 
 ```typescript
 import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
@@ -99,6 +99,8 @@ Custom template
 | **autoDelay** | number | 500 | Delay timeout in milliseconds |
 | **autoRepeat** | number | 25 | Repeat interval in milliseconds |
 
+Exported as **ngxMatNumberSpinner**
+
 ## Directives 
 
 * **ngxMatNumberIncrementSpinnerFor**
@@ -109,6 +111,8 @@ Custom template
 | **ngxMatNumberIncrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
 | **ngxMatNumberIncrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
 
+Exported as **ngxMatNumberIncrementSpinner**
+
 * **ngxMatNumberDecrementSpinnerFor**
 
 | @Input | Type | Default | Description |
@@ -116,3 +120,5 @@ Custom template
 | **ngxMatNumberDecrementSpinnerFor** | HTMLInputElement | | HTML input element (required!) |
 | **ngxMatNumberDecrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
 | **ngxMatNumberDecrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
+
+Exported as **ngxMatNumberDecrementSpinner**
