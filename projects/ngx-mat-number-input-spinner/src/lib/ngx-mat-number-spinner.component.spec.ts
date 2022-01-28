@@ -81,7 +81,7 @@ describe('NgxMatNumberSpinner', () => {
     expect(inputEl.value).toEqual('1.25')
   });
 
-  it('should increment 10 times, start at value 3.5 but stop at max value 7', () => {
+  it('should increment 10 times, start at value 3.55, stop at max value 7, step 0.55', () => {
     const inputEl = fixture.debugElement.nativeElement.querySelector('input');
     const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--inc');
 
@@ -89,9 +89,9 @@ describe('NgxMatNumberSpinner', () => {
     spyOn(spinner, 'startAutoUpdate').and.callThrough();
     spyOn(spinner, 'stopAutoUpdate').and.callThrough();
 
-    inputEl.setAttribute('value', '3.5');
-    inputEl.setAttribute('step', '.5');
-    inputEl.setAttribute('max', '7');
+    inputEl.setAttribute('value', '3.55');
+    inputEl.setAttribute('step', '.55');
+    inputEl.setAttribute('max', '7.2');
     spinner.readInputElAttributes();
     fixture.detectChanges();
 
@@ -106,7 +106,7 @@ describe('NgxMatNumberSpinner', () => {
     expect(spinner.startAutoUpdate).toHaveBeenCalledTimes(10);
     expect(spinner.stopAutoUpdate).toHaveBeenCalledTimes(20);
 
-    expect(inputEl.value).toEqual('7.0')
+    expect(inputEl.value).toEqual('7.2')
   });
 
   it('should decrement from 33 to 30', () => {
@@ -139,6 +139,34 @@ describe('NgxMatNumberSpinner', () => {
     fixture.detectChanges();
 
     expect(inputEl.value).toEqual('1.22')
+  });
+
+  it('should decrement 10 times, start at value 2.66, stop at min value 2.1, step .2', () => {
+    const inputEl = fixture.debugElement.nativeElement.querySelector('input');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--dec');
+
+    spyOn(spinner, 'updateInputEl').and.callThrough();
+    spyOn(spinner, 'startAutoUpdate').and.callThrough();
+    spyOn(spinner, 'stopAutoUpdate').and.callThrough();
+
+    inputEl.setAttribute('value', '2.66');
+    inputEl.setAttribute('step', '.2');
+    inputEl.setAttribute('min', '2.10');
+    spinner.readInputElAttributes();
+    fixture.detectChanges();
+
+    for (let i=0; i<10; i++) {
+      buttonEl.dispatchEvent(new Event('mousedown'));
+      buttonEl.dispatchEvent(new Event('mouseup'));
+      fixture.detectChanges();
+    }
+
+    // check calls
+    expect(spinner.updateInputEl).toHaveBeenCalledTimes(10);
+    expect(spinner.startAutoUpdate).toHaveBeenCalledTimes(10);
+    expect(spinner.stopAutoUpdate).toHaveBeenCalledTimes(20);
+
+    expect(inputEl.value).toEqual('2.1')
   });
 
   it('should disable then enable', () => {

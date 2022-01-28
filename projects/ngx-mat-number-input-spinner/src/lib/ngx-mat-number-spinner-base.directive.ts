@@ -70,7 +70,7 @@ export class _NgxMatNumberSpinnerBase implements OnDestroy {
     if (this._max != null && value > this._max) {
       value = this._max;
     }
-    this._inputEl.value = value.toFixed(this._precision);
+    this._inputEl.value = '' + parseFloat(value.toFixed(this._precision));
     this._inputEl.dispatchEvent(new Event('change'));
     this._inputEl.dispatchEvent(new Event('input'));
   }
