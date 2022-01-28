@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
-import {
-  NgxMatNumberSpinner,
-  NgxMatNumberIncrementSpinner,
-  NgxMatNumberDecrementSpinner
-} from './ngx-mat-number-spinner.component';
 import { MatRippleModule } from "@angular/material/core";
 
+import { NgxMatNumberSpinner } from './ngx-mat-number-spinner.component';
+import { NgxMatNumberIncrementSpinner } from "./ngx-mat-number-increment-spinner.directive";
+import { NgxMatNumberDecrementSpinner } from "./ngx-mat-number-decrement-spinner.directive";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 @NgModule({
   declarations: [
     NgxMatNumberSpinner,
     NgxMatNumberIncrementSpinner,
-    NgxMatNumberDecrementSpinner
+    NgxMatNumberDecrementSpinner,
   ],
   imports: [
+    BrowserAnimationsModule,
     MatRippleModule
   ],
   exports: [
