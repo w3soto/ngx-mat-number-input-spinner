@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-number-input-spinner",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "homepage": "https://github.com/w3soto/ngx-mat-number-input-spinner#readme",
   "peerDependencies": {
