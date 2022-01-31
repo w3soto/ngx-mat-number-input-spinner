@@ -8,7 +8,7 @@ import { _NgxMatNumberSpinnerBase, NgxMatNumberSpinnerSign } from "./ngx-mat-num
 
 @Directive({
   selector: 'input[ngxMatNumberSpinner]',
-  exportAs: 'ngxMatNumberSpinner',
+  exportAs: 'ngxMatNumberSpinnerInput',
   host: {
     'class': 'ngx-mat-number-spinner-input '
   }
