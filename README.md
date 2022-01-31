@@ -43,17 +43,14 @@ Basic template
   
   <input
     matInput
-    #myNumberInput
     type="number"
     step=".5"
     min="-10"
     max="10"
+    [ngxMatNumberSpinner]="spinner"
     [(ngModel)]="myNumberInputValue">
 
-    <ngx-mat-number-spinner
-      matSuffix
-      [for]="myNumberInput">
-    </ngx-mat-number-spinner>
+    <ngx-mat-number-spinner #spinner matSuffix></ngx-mat-number-spinner>
     
 </mat-form-field>
 ```
@@ -64,17 +61,18 @@ Custom template
   
   <input 
     matInput 
-    #myCustomInput 
     type="number" 
     min="0" 
     max="5" 
-    value="0">
+    value="0"
+    [ngxMatNumberSpinner]="[spinnerUp,spinnerDown]">
     
   <button 
     mat-icon-button 
     color="primary" 
     matPrefix 
-    [ngxMatNumberIncrementSpinnerFor]="myCustomInput">
+    ngxMatNumberIncrementSpinner
+    #spinnerUp="ngxMatNumberIncrementSpinner">
     <mat-icon>thumb_up</mat-icon>
   </button>
   
@@ -82,7 +80,8 @@ Custom template
     mat-icon-button 
     color="warn" 
     matSuffix 
-    [ngxMatNumberDecrementSpinnerFor]="myCustomInput">
+    ngxMatNumberDecrementSpinner
+    #spinnerDown="ngxMatNumberDecrementSpinner">
     <mat-icon>thumb_down</mat-icon>
   </button>
   
@@ -95,7 +94,6 @@ Custom template
 
 | @Input | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
-| **for** | HTMLInputElement | | HTML input element (required!) |
 | **autoDelay** | number | 500 | Delay timeout in milliseconds |
 | **autoRepeat** | number | 25 | Repeat interval in milliseconds |
 
@@ -103,11 +101,19 @@ Exported as **ngxMatNumberSpinner**
 
 ## Directives 
 
-* **ngxMatNumberIncrementSpinnerFor**
+* **input[ngxMatNumberSpinner]**
+
+| @Input | Description |
+| ------ | ----------- |
+| **ngxMatNumberSpinner** | Reference to *ngx-mat-number-spinner* or list of references to *ngxMatNumberIncrementSpinner* and *ngxMatNumberDecrementSpinner* |
+
+Exported as **ngxMatNumberSpinnerInput**
+
+
+* **ngxMatNumberIncrementSpinner**
 
 | @Input | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
-| **ngxMatNumberIncrementSpinnerFor** | HTMLInputElement | | HTML input element (required!) |
 | **ngxMatNumberIncrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
 | **ngxMatNumberIncrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
 
@@ -117,7 +123,6 @@ Exported as **ngxMatNumberIncrementSpinner**
 
 | @Input | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
-| **ngxMatNumberDecrementSpinnerFor** | HTMLInputElement | | HTML input element (required!) |
 | **ngxMatNumberDecrementSpinnerAutoDelay** | number | 500 | Delay timeout in milliseconds |
 | **ngxMatNumberDecrementSpinnerAutoRepeat** | number | 25 | Repeat interval in milliseconds |
 
