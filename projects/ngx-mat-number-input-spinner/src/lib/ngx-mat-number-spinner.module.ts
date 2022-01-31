@@ -4,6 +4,7 @@ import { MatRippleModule } from "@angular/material/core";
 import { NgxMatNumberSpinner } from './ngx-mat-number-spinner.component';
 import { NgxMatNumberIncrementSpinner } from "./ngx-mat-number-increment-spinner.directive";
 import { NgxMatNumberDecrementSpinner } from "./ngx-mat-number-decrement-spinner.directive";
+import { NgxMatNumberSpinnerInput } from './ngx-mat-number-spinner-input.directive';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { NgxMatNumberDecrementSpinner } from "./ngx-mat-number-decrement-spinner
     NgxMatNumberSpinner,
     NgxMatNumberIncrementSpinner,
     NgxMatNumberDecrementSpinner,
+    NgxMatNumberSpinnerInput,
   ],
   imports: [
     MatRippleModule
@@ -18,7 +20,8 @@ import { NgxMatNumberDecrementSpinner } from "./ngx-mat-number-decrement-spinner
   exports: [
     NgxMatNumberSpinner,
     NgxMatNumberIncrementSpinner,
-    NgxMatNumberDecrementSpinner
+    NgxMatNumberDecrementSpinner,
+    NgxMatNumberSpinnerInput,
   ]
 })
 export class NgxMatNumberInputSpinnerModule { }

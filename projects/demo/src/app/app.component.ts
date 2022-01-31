@@ -9,6 +9,8 @@ export class AppComponent {
 
   numberValue: number | null = null;
 
+  disabled: boolean = false;
+
   constructor() {
   }
 

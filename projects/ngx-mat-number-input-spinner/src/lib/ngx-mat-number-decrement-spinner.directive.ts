@@ -1,33 +1,31 @@
-import { ChangeDetectorRef, Directive, HostBinding, HostListener, Input, Renderer2 } from '@angular/core';
-import { _NgxMatNumberSpinnerBase } from "./ngx-mat-number-spinner-base.directive";
+import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { coerceNumberProperty } from "@angular/cdk/coercion";
+import {
+  _NgxMatNumberSpinnerBase,
+  NGX_MAT_NUMBER_SPINNER_AUTO_DELAY,
+  NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT
+} from "./ngx-mat-number-spinner-base.directive";
 
 
 @Directive({
-  selector: '[ngxMatNumberDecrementSpinnerFor]',
+  selector: '[ngxMatNumberDecrementSpinner]',
   exportAs: 'ngxMatNumberDecrementSpinner'
 })
 export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase {
 
-  @Input('ngxMatNumberDecrementSpinnerFor')
-  set inputEl(el: HTMLInputElement) {
-    this.disconnectInputEl();
-    this._inputEl = el;
-    this.connectInputEl();
-  }
-
   @Input('ngxMatNumberDecrementSpinnerAutoDelay')
-  set autoDelay(autoDelay: number) {
-    this._autoDelay = autoDelay;
+  set autoDelay(val: number) {
+    this._autoDelay = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_DELAY);
   }
 
   @Input('ngxMatNumberDecrementSpinnerAutoRepeat')
-  set autoRepeat(autoRepeat: number) {
-    this._autoRepeat = autoRepeat;
+  set autoRepeat(val: number) {
+    this._autoRepeat = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT);
   }
 
   @HostListener('mousedown')
   mouseDown() {
-    this.updateInputEl(-1);
+    this.changed.emit(-1);
     this.startAutoUpdate(-1);
   }
 
@@ -37,12 +35,8 @@ export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase {
   }
 
   @HostBinding('disabled')
-  get disabled(): boolean {
+  get isDisabled(): boolean {
     return this._disabled;
-  }
-
-  constructor(_renderer: Renderer2,_cdr: ChangeDetectorRef) {
-    super(_renderer, _cdr);
   }
 
 }

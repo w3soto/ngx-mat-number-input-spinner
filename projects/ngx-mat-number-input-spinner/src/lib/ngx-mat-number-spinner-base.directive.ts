@@ -1,98 +1,46 @@
-import { ChangeDetectorRef, Directive, OnDestroy, Renderer2 } from "@angular/core";
-import { coerceBooleanProperty, coerceNumberProperty } from "@angular/cdk/coercion";
+import { ChangeDetectorRef, Directive, EventEmitter, OnDestroy, Output } from "@angular/core";
+import { coerceBooleanProperty } from "@angular/cdk/coercion";
 
 
 export type NgxMatNumberSpinnerSign = -1 | 1;
+
+export const NGX_MAT_NUMBER_SPINNER_AUTO_DELAY = 500;
+
+export const NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT = 25;
 
 
 @Directive({})
 export class _NgxMatNumberSpinnerBase implements OnDestroy {
 
-  protected _inputEl!: HTMLInputElement;
+  @Output()
+  readonly changed: EventEmitter<NgxMatNumberSpinnerSign> = new EventEmitter<NgxMatNumberSpinnerSign>();
 
-  protected _step: number = 1;
-  protected _precision: number = 0;
-  protected _min: number | null = null;
-  protected _max: number | null = null;
+  set disabled(disabled: boolean) {
+    this._disabled = coerceBooleanProperty(disabled);
+    this._cdr.detectChanges();
+  }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   protected _disabled: boolean = false;
 
-  protected _autoDelay: number = 500;
-  protected _autoRepeat: number = 25;
+  protected _autoDelay: number = NGX_MAT_NUMBER_SPINNER_AUTO_DELAY;
+  protected _autoRepeat: number = NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT;
 
   private _autoTimeout: any;
   private _autoInterval: any;
 
-  readonly _mutationObserver!: MutationObserver;
-
   constructor(
-    protected _renderer: Renderer2,
-    protected _cdr: ChangeDetectorRef
-  ) {
-    this._mutationObserver = new MutationObserver(() => {
-      this.readInputElAttributes();
-    });
-  }
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnDestroy(): void {
     this.stopAutoUpdate();
-    this.disconnectInputEl();
   }
 
-  connectInputEl() {
-    if (this._inputEl) {
-      this._renderer.addClass(this._inputEl, 'ngx-mat-number-spinner-input');
-      this._mutationObserver.observe(this._inputEl, {attributeFilter: ['min', 'max', 'step', 'disabled']});
-      this.readInputElAttributes();
-    }
-  }
-
-  disconnectInputEl() {
-    if (this._inputEl) {
-      this._renderer.removeClass(this._inputEl, 'ngx-mat-number-spinner-input');
-      this._mutationObserver.disconnect();
-    }
-    // reset values
-    this._step = 1;
-    this._precision = 0;
-    this._min = null;
-    this._max = null;
-    this._disabled = false;
-  }
-
-  updateInputEl(sign: NgxMatNumberSpinnerSign) {
-    if (this._disabled) {
-      return;
-    }
-    let value = sign * this._step + coerceNumberProperty(this._inputEl.value, 0);
-    if (this._min != null && value < this._min) {
-      value = this._min;
-    }
-    if (this._max != null && value > this._max) {
-      value = this._max;
-    }
-    this._inputEl.value = '' + parseFloat(value.toFixed(this._precision));
-    this._inputEl.dispatchEvent(new Event('change'));
-    this._inputEl.dispatchEvent(new Event('input'));
-  }
-
-  readInputElAttributes() {
-    this._step = coerceNumberProperty(this._inputEl.getAttribute('step'), 1);
-    if (this._step <= 0) {
-      this._step = 1;
-    }
-
-    // get number of digits after decimal point
-    this._precision = 0;
-    const decimalIndex = ('' + this._step).indexOf('.');
-    if (decimalIndex > -1) {
-      this._precision = ('' + this._step).length - decimalIndex - 1;
-    }
-
-    this._min = coerceNumberProperty(this._inputEl.getAttribute('min'), null);
-    this._max = coerceNumberProperty(this._inputEl.getAttribute('max'), null);
-    this._disabled = coerceBooleanProperty(this._inputEl.getAttribute('disabled'));
-
-    this._cdr.markForCheck();
+  setDisabled(disabled: boolean) {
+    this._disabled = disabled;
+    this._cdr.detectChanges();
   }
 
   startAutoUpdate(sign: NgxMatNumberSpinnerSign) {
@@ -102,7 +50,7 @@ export class _NgxMatNumberSpinnerBase implements OnDestroy {
     this.stopAutoUpdate();
     this._autoTimeout = setTimeout( () => {
       this._autoInterval = setInterval( () => {
-        this.updateInputEl(sign);
+        this.changed.emit(sign)
       }, this._autoRepeat);
     }, this._autoDelay);
   }

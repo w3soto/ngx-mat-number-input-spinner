@@ -1,12 +1,12 @@
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { coerceNumberProperty } from "@angular/cdk/coercion";
+
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  Renderer2,
-  ViewEncapsulation
-} from '@angular/core';
-import { _NgxMatNumberSpinnerBase, NgxMatNumberSpinnerSign } from "./ngx-mat-number-spinner-base.directive";
+  _NgxMatNumberSpinnerBase,
+  NGX_MAT_NUMBER_SPINNER_AUTO_DELAY,
+  NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT,
+  NgxMatNumberSpinnerSign
+} from "./ngx-mat-number-spinner-base.directive";
 
 
 @Component({
@@ -22,33 +22,18 @@ import { _NgxMatNumberSpinnerBase, NgxMatNumberSpinnerSign } from "./ngx-mat-num
 })
 export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase {
 
-  @Input('for')
-  set inputEl(el: HTMLInputElement) {
-    this.disconnectInputEl();
-    this._inputEl = el;
-    this.connectInputEl();
+  @Input()
+  set autoDelay(val: number) {
+    this._autoDelay = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_DELAY);
   }
 
   @Input()
-  set autoDelay(autoDelay: number) {
-    this._autoDelay = autoDelay;
-  }
-
-  @Input()
-  set autoRepeat(autoRepeat: number) {
-    this._autoRepeat = autoRepeat;
-  }
-
-  get disabled(): boolean {
-    return this._disabled;
-  }
-
-  constructor(_renderer: Renderer2,_cdr: ChangeDetectorRef) {
-    super(_renderer, _cdr);
+  set autoRepeat(val: number) {
+    this._autoRepeat = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT);
   }
 
   mouseDown(sign: NgxMatNumberSpinnerSign) {
-    this.updateInputEl(sign);
+    this.changed.emit(sign);
     this.startAutoUpdate(sign);
   }
 

@@ -1,4 +1,3 @@
-
 <mat-card>
   <mat-card-title>
     Classic Spinner
@@ -12,16 +11,14 @@
       <mat-label>Classic ({{ appearance }})</mat-label>
       <input
         matInput
-        #numberInput
         type="number"
         step="1"
         min="-10"
         max="10"
+        [ngxMatNumberSpinner]="spinner"
         [(ngModel)]="numberValue">
 
-      <ngx-mat-number-spinner
-        matSuffix
-        [for]="numberInput"></ngx-mat-number-spinner>
+      <ngx-mat-number-spinner #spinner matSuffix></ngx-mat-number-spinner>
 
     </mat-form-field>
 
@@ -38,51 +35,122 @@
   <mat-card-content>
 
     <mat-form-field appearance="legacy">
+
       <mat-label>Custom (legacy)</mat-label>
-      <input matInput #customLegacyInput type="number">
-      <button mat-icon-button matPrefix [ngxMatNumberIncrementSpinnerFor]="customLegacyInput">
+
+      <input
+        matInput
+        type="number"
+        [ngxMatNumberSpinner]="[spinnerUp1,spinnerDown1]">
+
+      <button
+        mat-icon-button
+        matPrefix
+        ngxMatNumberIncrementSpinner
+        #spinnerUp1="ngxMatNumberIncrementSpinner">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-icon-button matSuffix [ngxMatNumberDecrementSpinnerFor]="customLegacyInput">
+
+      <button
+        mat-icon-button
+        matSuffix
+        ngxMatNumberDecrementSpinner
+        #spinnerDown1="ngxMatNumberDecrementSpinner">
         <mat-icon>remove</mat-icon>
       </button>
+
     </mat-form-field>
 
     <mat-form-field appearance="standard">
+
       <mat-label>Custom (standard)</mat-label>
-      <input matInput #customStandardInput type="number" min="36" max="42" value="37" step=".01">
-      <button mat-icon-button matPrefix [ngxMatNumberIncrementSpinnerFor]="customStandardInput">
+
+      <input
+        matInput
+        type="number"
+        min="36"
+        max="42"
+        value="37"
+        step=".01"
+        [ngxMatNumberSpinner]="[spinnerUp2,spinnerDown2]">
+
+      <button
+        mat-icon-button
+        matPrefix
+        ngxMatNumberIncrementSpinner
+        #spinnerUp2="ngxMatNumberIncrementSpinner">
         <mat-icon>add_box</mat-icon>
       </button>
-      <button mat-icon-button matSuffix [ngxMatNumberDecrementSpinnerFor]="customStandardInput">
+
+      <button
+        mat-icon-button
+        matSuffix
+        ngxMatNumberDecrementSpinner
+        #spinnerDown2="ngxMatNumberDecrementSpinner">
         <mat-icon>indeterminate_check_box</mat-icon>
       </button>
+
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+
       <mat-label>Custom (fill)</mat-label>
-      <input matInput #customFillInput type="number" min="0" max="5" value="0">
-      <button mat-icon-button color="primary" matPrefix [ngxMatNumberIncrementSpinnerFor]="customFillInput">
+
+      <input
+        matInput
+        type="number"
+        min="0"
+        max="5"
+        value="0"
+        [ngxMatNumberSpinner]="[spinnerUp3,spinnerDown3]">
+
+      <button
+        mat-icon-button
+        color="primary"
+        matPrefix
+        ngxMatNumberIncrementSpinner
+        #spinnerUp3="ngxMatNumberIncrementSpinner">
         <mat-icon>thumb_up</mat-icon>
       </button>
-      <button mat-icon-button color="warn" matSuffix [ngxMatNumberDecrementSpinnerFor]="customFillInput">
+
+      <button
+        mat-icon-button
+        color="warn"
+        matSuffix
+        ngxMatNumberDecrementSpinner
+        #spinnerDown3="ngxMatNumberDecrementSpinner">
         <mat-icon>thumb_down</mat-icon>
       </button>
+
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+
       <mat-label>Custom (outline)</mat-label>
-      <input matInput #customOutlineInput type="number">
-      <button mat-icon-button matPrefix
-              style="background-color: yellowgreen; color: white; margin-right: 10px;"
-              [ngxMatNumberIncrementSpinnerFor]="customOutlineInput">
+
+      <input
+        matInput
+        type="number"
+        [ngxMatNumberSpinner]="[spinnerUp4,spinnerDown4]">
+
+      <button
+        mat-icon-button
+        matPrefix
+        style="background-color: yellowgreen; color: white; margin-right: 10px;"
+        ngxMatNumberIncrementSpinner
+        #spinnerUp4="ngxMatNumberIncrementSpinner">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-icon-button matSuffix
-              style="background-color: orangered; color: white; margin-left: 10px;"
-              [ngxMatNumberDecrementSpinnerFor]="customOutlineInput">
+
+      <button
+        mat-icon-button
+        matSuffix
+        style="background-color: orangered; color: white; margin-left: 10px;"
+        ngxMatNumberDecrementSpinner
+        #spinnerDown4="ngxMatNumberDecrementSpinner">
         <mat-icon>remove</mat-icon>
       </button>
+
     </mat-form-field>
 
   </mat-card-content>
