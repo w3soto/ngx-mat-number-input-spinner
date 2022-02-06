@@ -12,6 +12,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { AppComponent } from './app.component';
 
 import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -28,6 +31,7 @@ import { NgxMatNumberInputSpinnerModule } from "ngx-mat-number-input-spinner";
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatSlideToggleModule,
 
     NgxMatNumberInputSpinnerModule
   ],

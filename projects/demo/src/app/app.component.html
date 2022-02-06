@@ -1,3 +1,4 @@
+<div class="content">
 <mat-card>
   <mat-card-title>
     Classic Spinner
@@ -16,6 +17,7 @@
         min="-10"
         max="10"
         [ngxMatNumberSpinner]="spinner"
+        [disabled]="disabled"
         [(ngModel)]="numberValue">
 
       <ngx-mat-number-spinner #spinner matSuffix></ngx-mat-number-spinner>
@@ -41,6 +43,7 @@
       <input
         matInput
         type="number"
+        [disabled]="disabled"
         [ngxMatNumberSpinner]="[spinnerUp1,spinnerDown1]">
 
       <button
@@ -72,6 +75,7 @@
         max="42"
         value="37"
         step=".01"
+        [disabled]="disabled"
         [ngxMatNumberSpinner]="[spinnerUp2,spinnerDown2]">
 
       <button
@@ -102,6 +106,7 @@
         min="0"
         max="5"
         value="0"
+        [disabled]="disabled"
         [ngxMatNumberSpinner]="[spinnerUp3,spinnerDown3]">
 
       <button
@@ -131,12 +136,14 @@
       <input
         matInput
         type="number"
+        [disabled]="disabled"
         [ngxMatNumberSpinner]="[spinnerUp4,spinnerDown4]">
 
       <button
         mat-icon-button
         matPrefix
-        style="background-color: yellowgreen; color: white; margin-right: 10px;"
+        style="color: white; margin-right: 10px;"
+        [ngStyle]="{'background-color': disabled ? 'silver' : 'yellowgreen'}"
         ngxMatNumberIncrementSpinner
         #spinnerUp4="ngxMatNumberIncrementSpinner">
         <mat-icon>add</mat-icon>
@@ -145,7 +152,8 @@
       <button
         mat-icon-button
         matSuffix
-        style="background-color: orangered; color: white; margin-left: 10px;"
+        style="color: white; margin-left: 10px;"
+        [ngStyle]="{'background-color': disabled ? 'silver' : 'orangered'}"
         ngxMatNumberDecrementSpinner
         #spinnerDown4="ngxMatNumberDecrementSpinner">
         <mat-icon>remove</mat-icon>
@@ -155,3 +163,8 @@
 
   </mat-card-content>
 </mat-card>
+</div>
+
+<div>
+  <mat-slide-toggle [(ngModel)]="disabled">Disable all</mat-slide-toggle>
+</div>

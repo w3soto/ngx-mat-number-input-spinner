@@ -1,7 +1,13 @@
 :host {
   padding: 24px;
   display: flex;
+  flex-direction: column;
   gap: 24px;
+
+  .content {
+    display: flex;
+    gap: 24px;
+  }
 
   mat-card-content {
     display: flex;
