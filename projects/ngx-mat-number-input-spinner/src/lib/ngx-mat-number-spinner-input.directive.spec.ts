@@ -100,22 +100,19 @@ describe('NgxMatNumberSpinnerInput', () => {
   it('should calculate precision as 0', () => {
     component.step = 1;
     fixture.detectChanges();
-    // @ts-ignore
-    expect(directive._precision).toEqual(0);
+    expect((directive as any)._precision).toEqual(0);
   });
 
   it('should calculate precision as 1', () => {
     component.step = .2;
     fixture.detectChanges();
-    // @ts-ignore
-    expect(directive._precision).toEqual(1);
+    expect((directive as any)._precision).toEqual(1);
   });
 
   it('should calculate precision as 2', () => {
     component.step = 1.25;
     fixture.detectChanges();
-    // @ts-ignore
-    expect(directive._precision).toEqual(2);
+    expect((directive as any)._precision).toEqual(2);
   });
 
 });
