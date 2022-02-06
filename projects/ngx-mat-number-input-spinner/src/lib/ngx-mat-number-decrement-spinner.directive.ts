@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import { coerceNumberProperty } from "@angular/cdk/coercion";
 import {
   _NgxMatNumberSpinnerBase,
@@ -9,7 +9,10 @@ import {
 
 @Directive({
   selector: '[ngxMatNumberDecrementSpinner]',
-  exportAs: 'ngxMatNumberDecrementSpinner'
+  exportAs: 'ngxMatNumberDecrementSpinner',
+  host: {
+    'class': 'ngx-mat-number-decrement-spinner'
+  }
 })
 export class NgxMatNumberDecrementSpinner extends _NgxMatNumberSpinnerBase {
 
