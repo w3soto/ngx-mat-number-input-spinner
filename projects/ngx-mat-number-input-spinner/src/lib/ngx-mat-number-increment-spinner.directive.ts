@@ -38,8 +38,4 @@ export class NgxMatNumberIncrementSpinner extends _NgxMatNumberSpinnerBase {
     this.stopAutoUpdate();
   }
 
-  @HostBinding('disabled')
-  get isDisabled(): boolean {
-    return this._disabled;
-  }
 }
