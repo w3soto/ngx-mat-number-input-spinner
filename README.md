@@ -2,16 +2,16 @@
 
 Number Spinner component for Angular Material
 
+[![w3soto](https://circleci.com/gh/w3soto/ngx-mat-number-input-spinner.svg?style=svg)](https://circleci.com/gh/w3soto/ngx-mat-number-input-spinner)
+
 [StackBlitz Demo](https://stackblitz.com/edit/angular-ivy-ebi2rm)
 
-[GitHub](https://github.com/w3soto/ngx-mat-number-input-spinner)
+![Screenshot](https://raw.githubusercontent.com/w3soto/ngx-mat-number-input-spinner/master/screenshot.png "Screenshot")
 
 ## Features
 * Replace default browser spinner 
 * Custom buttons (prefix/suffix) for increment and decrement value 
 * Read *step*, *min*, *max* and *disabled* properties from input element
-
-![Screenshot](https://raw.githubusercontent.com/w3soto/ngx-mat-number-input-spinner/master/screenshot.png "Screenshot")
 
 ## Installation
 ```shell
