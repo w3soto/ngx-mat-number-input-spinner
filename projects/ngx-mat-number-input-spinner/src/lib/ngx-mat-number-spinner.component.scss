@@ -18,7 +18,8 @@
     align-items: center;
   }
 
-  &-button {
+  &-button-inc,
+  &-button-dec {
     width: 24px;
     height: 12px;
     background-color: transparent;
@@ -26,6 +27,7 @@
     cursor: pointer;
     position: relative;
     color: #0000008a;
+
     &:after {
       position: absolute;
       content: "";
@@ -37,22 +39,25 @@
       border-right: 5px solid transparent;
       border-top: 5px solid;
     }
-    &[disabled] {
-      cursor: default;
-      color: rgba(0, 0, 0, 0.38);
-    }
   }
 
-  &-button--inc:after {
+  &-button-inc:after {
     transform: rotate(180deg) translateY(50%) translateX(50%);
   }
 
-  &-button--dec:after {
+  &-button-dec:after {
     transform: translateY(-50%) translateX(-50%);
   }
 
 }
 
+.ngx-mat-number-spinner-button-inc[disabled],
+.ngx-mat-number-spinner-button-dec[disabled],
+.ngx-mat-number-increment-spinner[disabled],
+.ngx-mat-number-decrement-spinner[disabled] {
+  cursor: default;
+  color: rgba(0, 0, 0, .38);
+}
 
 .ngx-mat-number-spinner-input {
   /* Chrome, Safari, Edge, Opera */
@@ -61,6 +66,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
   /* Firefox */
   &[type=number] {
     -moz-appearance: textfield;

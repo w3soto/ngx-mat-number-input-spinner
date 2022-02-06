@@ -82,8 +82,8 @@ describe('NgxMatNumberSpinner', () => {
 
   it('should disable then enable', fakeAsync(() => {
 
-    const incButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--inc');
-    const decButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--dec');
+    const incButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
+    const decButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
 
     component.disabled = true;
     fixture.detectChanges();
@@ -117,7 +117,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--inc');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
     buttonEl.dispatchEvent(new Event('mousedown'));
     buttonEl.dispatchEvent(new Event('mouseup'));
     fixture.detectChanges();
@@ -134,7 +134,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--inc');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
     buttonEl.dispatchEvent(new Event('mousedown'));
     buttonEl.dispatchEvent(new Event('mouseup'));
     fixture.detectChanges();
@@ -152,7 +152,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--inc');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
     buttonEl.dispatchEvent(new Event('mousedown'));
     fixture.detectChanges();
     tick(2000); // delay 500 + interval 20*25 ... result cca 60 ?
@@ -180,7 +180,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--dec');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
     buttonEl.dispatchEvent(new Event('mousedown'));
     buttonEl.dispatchEvent(new Event('mouseup'));
     fixture.detectChanges();
@@ -197,7 +197,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--dec');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
     buttonEl.dispatchEvent(new Event('mousedown'));
     buttonEl.dispatchEvent(new Event('mouseup'));
     fixture.detectChanges();
@@ -215,7 +215,7 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button--dec');
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
     buttonEl.dispatchEvent(new Event('mousedown'));
     fixture.detectChanges();
     tick(2000); // delay 500 + interval 20*25 ... result cca 60 ?
