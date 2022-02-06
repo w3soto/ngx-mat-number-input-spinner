@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { NgxMatNumberSpinner } from './ngx-mat-number-spinner.component';
 import { Component, Input, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { NgxMatNumberSpinnerInput } from "ngx-mat-number-input-spinner";
+import { NgxMatNumberSpinnerInput } from "./ngx-mat-number-spinner-input.directive";
 import { MatRippleModule } from "@angular/material/core";
 
 
