@@ -11,7 +11,7 @@ Number Spinner component for Angular Material
 ## Features
 * Replace default browser spinner 
 * Custom buttons (prefix/suffix) for increment and decrement value 
-* Read *step*, *min*, *max* and *disabled* properties from input element
+* Read *step*, *min*, *max*, *readonly* and *disabled* properties from input element
 
 ## Installation
 ```shell
