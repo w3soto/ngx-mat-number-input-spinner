@@ -128,8 +128,8 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
       value = this._max;
     }
     this._inputEl.nativeElement.value = '' + parseFloat(value.toFixed(this._precision));
-    this._inputEl.nativeElement.dispatchEvent(new Event('change'));
     this._inputEl.nativeElement.dispatchEvent(new Event('input'));
+    this._inputEl.nativeElement.dispatchEvent(new Event('change'));
   }
 
 }
