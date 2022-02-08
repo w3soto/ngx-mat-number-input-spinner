@@ -10,6 +10,7 @@ export class AppComponent {
   numberValue: number | null = null;
 
   disabled: boolean = false;
+  readonly: boolean = false;
 
   constructor() {
   }
