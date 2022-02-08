@@ -12,6 +12,7 @@ import { FormsModule } from "@angular/forms";
       [min]="min"
       [max]="max"
       [disabled]="disabled"
+      [readonly]="readonly"
       [(ngModel)]="value"
       ngxMatNumberSpinner>
   `
@@ -29,6 +30,8 @@ class TestComponent {
   max: number | null = null;
   @Input()
   disabled: boolean = false;
+  @Input()
+  readonly: boolean = false;
 }
 
 
@@ -95,6 +98,12 @@ describe('NgxMatNumberSpinnerInput', () => {
     component.disabled = true;
     fixture.detectChanges();
     expect(directive.disabled).toEqual(true);
+  });
+
+  it('should read readonly value', () => {
+    component.readonly = true;
+    fixture.detectChanges();
+    expect(directive.readonly).toEqual(true);
   });
 
   it('should calculate precision as 0', () => {

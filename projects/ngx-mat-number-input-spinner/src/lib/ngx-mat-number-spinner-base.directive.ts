@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, EventEmitter, HostBinding, Input, OnDestroy, Output } from "@angular/core";
+import { ChangeDetectorRef, Directive, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 
 
@@ -16,7 +16,7 @@ export class _NgxMatNumberSpinnerBase implements OnDestroy {
   readonly changed: EventEmitter<NgxMatNumberSpinnerSign> = new EventEmitter<NgxMatNumberSpinnerSign>();
 
   @Input()
-  set disabled(disabled: boolean) {
+  set disabled(disabled: any) {
     this._disabled = coerceBooleanProperty(disabled);
     this.stopAutoUpdate();
     this._cdr.markForCheck();
@@ -26,10 +26,16 @@ export class _NgxMatNumberSpinnerBase implements OnDestroy {
   }
   protected _disabled: boolean = false;
 
-  @HostBinding('attr.disabled')
-  private get _attrDisabled(): boolean | null {
-    return this._disabled ? true : null;
+  @Input()
+  set readonly(readonly: any) {
+    this._readonly = coerceBooleanProperty(readonly);
+    this.stopAutoUpdate();
+    this._cdr.markForCheck();
   }
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  protected _readonly: boolean = false;
 
   protected _autoDelay: number = NGX_MAT_NUMBER_SPINNER_AUTO_DELAY;
   protected _autoRepeat: number = NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT;
@@ -46,7 +52,7 @@ export class _NgxMatNumberSpinnerBase implements OnDestroy {
   }
 
   startAutoUpdate(sign: NgxMatNumberSpinnerSign) {
-    if (this._disabled) {
+    if (this._disabled || this._readonly) {
       return;
     }
     this.stopAutoUpdate();

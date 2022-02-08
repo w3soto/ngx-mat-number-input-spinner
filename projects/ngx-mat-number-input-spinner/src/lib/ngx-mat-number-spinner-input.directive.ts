@@ -73,6 +73,18 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
   }
   private _disabled: boolean = false;
 
+  @Input()
+  set readonly(val: any) {
+    this._readonly = coerceBooleanProperty(val);
+    this._spinners.forEach(spinner => {
+      spinner.readonly = this._readonly;
+    });
+  }
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  private _readonly: boolean = false;
+
   private _precision: number = 0;
 
   private _destroyed: Subject<void> = new Subject();

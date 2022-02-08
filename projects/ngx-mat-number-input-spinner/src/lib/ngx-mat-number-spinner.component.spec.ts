@@ -15,6 +15,7 @@ import { MatRippleModule } from "@angular/material/core";
       [min]="min"
       [max]="max"
       [disabled]="disabled"
+      [readonly]="readonly"
       [(ngModel)]="value"
       [ngxMatNumberSpinner]="spinner">
       
@@ -34,6 +35,8 @@ class TestComponent {
   max: number | null = null;
   @Input()
   disabled: boolean = false;
+  @Input()
+  readonly: boolean = false;
 }
 
 
@@ -62,13 +65,14 @@ describe('NgxMatNumberSpinner', () => {
 
     component = fixture.componentInstance;
     component.value = 0;
-    component.step = 1
+    component.step = 1;
     component.min = null;
     component.max = null;
 
     spinner = component.spinner;
     spyOn(spinner, 'startAutoUpdate').and.callThrough();
     spyOn(spinner, 'stopAutoUpdate').and.callThrough();
+    spyOn(spinner.changed, 'emit').and.callThrough();
   });
 
   it('should create', () => {
@@ -80,8 +84,9 @@ describe('NgxMatNumberSpinner', () => {
     expect(spinner.stopAutoUpdate).toHaveBeenCalled();
   });
 
-  it('should disable then enable', fakeAsync(() => {
+  it('should set disabled', fakeAsync(() => {
 
+    const spinnerEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner');
     const incButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
     const decButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
 
@@ -90,19 +95,55 @@ describe('NgxMatNumberSpinner', () => {
 
     tick(100);
 
-    expect(spinner.disabled).toEqual(true);
-
-    expect(incButtonEl.hasAttribute("disabled")).toEqual(true);
-    expect(decButtonEl.hasAttribute("disabled")).toEqual(true);
-
-    component.disabled = false;
+    incButtonEl.dispatchEvent(new Event('mousedown'));
+    incButtonEl.dispatchEvent(new Event('mouseup'));
+    decButtonEl.dispatchEvent(new Event('mousedown'));
+    decButtonEl.dispatchEvent(new Event('mouseup'));
     fixture.detectChanges();
 
     tick(100);
 
-    expect(spinner.disabled).toEqual(false);
-    expect(incButtonEl.hasAttribute("disabled")).toEqual(false);
-    expect(decButtonEl.hasAttribute("disabled")).toEqual(false);
+    expect(spinner.disabled).toEqual(true);
+
+    expect(spinnerEl.classList.contains('ngx-mat-number-spinner-disabled')).toEqual(true);
+    expect(incButtonEl.hasAttribute("disabled")).toEqual(true);
+    expect(incButtonEl.classList.contains('ngx-mat-number-spinner-button-disabled')).toEqual(true);
+    expect(decButtonEl.hasAttribute("disabled")).toEqual(true);
+    expect(decButtonEl.classList.contains('ngx-mat-number-spinner-button-disabled')).toEqual(true);
+
+    expect(spinner.changed.emit).not.toHaveBeenCalled();
+    expect(spinner.startAutoUpdate).not.toHaveBeenCalled();
+
+    flush();
+  }));
+
+  it('should set readonly', fakeAsync(() => {
+
+    const spinnerEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner');
+    const incButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-inc');
+    const decButtonEl = fixture.debugElement.nativeElement.querySelector('.ngx-mat-number-spinner-button-dec');
+
+    component.readonly = true;
+    fixture.detectChanges();
+
+    tick(100);
+
+    incButtonEl.dispatchEvent(new Event('mousedown'));
+    incButtonEl.dispatchEvent(new Event('mouseup'));
+    decButtonEl.dispatchEvent(new Event('mousedown'));
+    decButtonEl.dispatchEvent(new Event('mouseup'));
+    fixture.detectChanges();
+
+    tick(100);
+
+    expect(spinner.readonly).toEqual(true);
+
+    expect(spinnerEl.classList.contains('ngx-mat-number-spinner-readonly')).toEqual(true);
+    expect(incButtonEl.classList.contains('ngx-mat-number-spinner-button-readonly')).toEqual(true);
+    expect(decButtonEl.classList.contains('ngx-mat-number-spinner-button-readonly')).toEqual(true);
+
+    expect(spinner.changed.emit).not.toHaveBeenCalled();
+    expect(spinner.startAutoUpdate).not.toHaveBeenCalled();
 
     flush();
   }));

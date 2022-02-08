@@ -51,12 +51,17 @@
 
 }
 
-.ngx-mat-number-spinner-button-inc[disabled],
-.ngx-mat-number-spinner-button-dec[disabled],
-.ngx-mat-number-increment-spinner[disabled],
-.ngx-mat-number-decrement-spinner[disabled] {
+.ngx-mat-number-spinner-button-disabled,
+.ngx-mat-number-increment-spinner-disabled,
+.ngx-mat-number-decrement-spinner-disabled {
   cursor: default;
   color: rgba(0, 0, 0, .38);
+}
+
+.ngx-mat-number-spinner-button-readonly,
+.ngx-mat-number-increment-spinner-readonly,
+.ngx-mat-number-decrement-spinner-readonly {
+  cursor: default;
 }
 
 .ngx-mat-number-spinner-input {

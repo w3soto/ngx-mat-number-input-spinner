@@ -14,6 +14,7 @@ import { NgxMatNumberSpinnerInput } from "./ngx-mat-number-spinner-input.directi
       [min]="min"
       [max]="max"
       [disabled]="disabled"
+      [readonly]="readonly"
       [(ngModel)]="value"
       [ngxMatNumberSpinner]="spinner">
       
@@ -34,6 +35,8 @@ class TestComponent {
   max: number | null = null;
   @Input()
   disabled: boolean = false;
+  @Input()
+  readonly: boolean = false;
 }
 
 
@@ -63,6 +66,7 @@ describe('NgxMatNumberIncrementSpinner', () => {
     directive = component.directive;
     spyOn(directive, 'startAutoUpdate').and.callThrough();
     spyOn(directive, 'stopAutoUpdate').and.callThrough();
+    spyOn(directive.changed, 'emit').and.callThrough();
   });
 
   it('should increment from 30 to 33', fakeAsync(() => {
@@ -144,24 +148,42 @@ describe('NgxMatNumberIncrementSpinner', () => {
     expect('' + component.value).toEqual('20')
   }));
 
-  it('should disable then enable', fakeAsync(() => {
-
+  it('should set disabled', fakeAsync(() => {
     component.disabled = true;
     fixture.detectChanges();
 
     tick(100);
 
     const buttonEl = fixture.debugElement.nativeElement.querySelector('button');
+    buttonEl.dispatchEvent(new Event('mousedown'));
+    buttonEl.dispatchEvent(new Event('mouseup'));
+    fixture.detectChanges();
 
     expect(directive.disabled).toEqual(true);
     expect(buttonEl.hasAttribute("disabled")).toEqual(true);
+    expect(buttonEl.classList.contains('ngx-mat-number-increment-spinner-disabled')).toEqual(true);
 
-    component.disabled = false;
+    expect(directive.changed.emit).not.toHaveBeenCalled();
+    expect(directive.startAutoUpdate).not.toHaveBeenCalled();
+
+  }));
+
+  it('should set readonly', fakeAsync(() => {
+    component.readonly = true;
     fixture.detectChanges();
 
-    expect(directive.disabled).toEqual(false)
-    expect(buttonEl.hasAttribute("disabled")).toEqual(false)
+    tick(100);
 
+    const buttonEl = fixture.debugElement.nativeElement.querySelector('button');
+    buttonEl.dispatchEvent(new Event('mousedown'));
+    buttonEl.dispatchEvent(new Event('mouseup'));
+    fixture.detectChanges();
+
+    expect(directive.readonly).toEqual(true);
+    expect(buttonEl.classList.contains('ngx-mat-number-increment-spinner-readonly')).toEqual(true);
+
+    expect(directive.changed.emit).not.toHaveBeenCalled();
+    expect(directive.startAutoUpdate).not.toHaveBeenCalled();
   }));
 
   it('should cleanup', () => {
