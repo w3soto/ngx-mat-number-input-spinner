@@ -124,4 +124,35 @@ describe('NgxMatNumberSpinnerInput', () => {
     expect((directive as any)._precision).toEqual(2);
   });
 
+  fit('should emit input event', () => {
+    spyOn((directive as any)._inputEl.nativeElement, 'dispatchEvent');
+
+    (directive as any)._updateInputEl(1);
+
+    expect((directive as any)._inputEl.nativeElement.dispatchEvent).toHaveBeenCalledWith(new Event('input'));
+    expect((directive as any)._inputEl.nativeElement.dispatchEvent).toHaveBeenCalledWith(new Event('change'));
+  });
+
+  it('should not emit input if disabled', () => {
+    component.disabled = true;
+    fixture.detectChanges();
+
+    spyOn((directive as any)._inputEl.nativeElement, 'dispatchEvent');
+
+    (directive as any)._updateInputEl(1);
+
+    expect((directive as any)._inputEl.nativeElement.dispatchEvent).not.toHaveBeenCalled();
+  });
+
+  it('should not emit input if readonly', () => {
+    component.readonly = true;
+    fixture.detectChanges();
+
+    spyOn((directive as any)._inputEl.nativeElement, 'dispatchEvent');
+
+    (directive as any)._updateInputEl(1);
+
+    expect((directive as any)._inputEl.nativeElement.dispatchEvent).not.toHaveBeenCalled();
+  });
+
 });

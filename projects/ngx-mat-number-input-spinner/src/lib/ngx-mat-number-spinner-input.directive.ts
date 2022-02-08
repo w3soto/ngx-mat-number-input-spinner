@@ -117,7 +117,7 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
   }
 
   private _updateInputEl(sign: NgxMatNumberSpinnerSign) {
-    if (this._disabled) {
+    if (this._disabled || this._readonly) {
       return;
     }
     let value = sign * this._step + coerceNumberProperty(this._inputEl.nativeElement.value, 0);
