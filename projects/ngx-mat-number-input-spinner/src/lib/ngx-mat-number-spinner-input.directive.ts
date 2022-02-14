@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
-import { coerceBooleanProperty, coerceNumberProperty } from "@angular/cdk/coercion";
+import { coerceBooleanProperty, coerceNumberProperty, NumberInput } from "@angular/cdk/coercion";
 import { Subject } from "rxjs";
 import { takeUntil, tap } from "rxjs/operators";
 
@@ -31,7 +31,7 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
   private _spinners: _NgxMatNumberSpinnerBase[] = [];
 
   @Input()
-  set min(val: any) {
+  set min(val: NumberInput) {
     this._min = coerceNumberProperty(val, null);
   }
   get min(): number | null {
@@ -40,7 +40,7 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
   private _min: number | null = null;
 
   @Input()
-  set max(val: any) {
+  set max(val: NumberInput) {
     this._max = coerceNumberProperty(val, null);
   }
   get max(): number | null {
@@ -49,7 +49,7 @@ export class NgxMatNumberSpinnerInput implements OnDestroy {
   private _max: number | null = null;
 
   @Input()
-  set step(val: any) {
+  set step(val: NumberInput) {
     this._step = coerceNumberProperty(val, 1);
     if (this._step <= 0) {
       this._step = 1;
