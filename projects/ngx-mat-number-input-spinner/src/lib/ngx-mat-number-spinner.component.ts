@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { coerceNumberProperty } from "@angular/cdk/coercion";
+import { coerceBooleanProperty, coerceNumberProperty, NumberInput } from "@angular/cdk/coercion";
 
 import {
   _NgxMatNumberSpinnerBase,
@@ -23,12 +23,12 @@ import {
 export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase {
 
   @Input()
-  set autoDelay(val: number) {
+  set autoDelay(val: NumberInput) {
     this._autoDelay = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_DELAY);
   }
 
   @Input()
-  set autoRepeat(val: number) {
+  set autoRepeat(val: NumberInput) {
     this._autoRepeat = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT);
   }
 
