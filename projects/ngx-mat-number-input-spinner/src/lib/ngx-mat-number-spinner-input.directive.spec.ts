@@ -124,7 +124,7 @@ describe('NgxMatNumberSpinnerInput', () => {
     expect((directive as any)._precision).toEqual(2);
   });
 
-  fit('should emit input event', () => {
+  it('should emit input event', () => {
     spyOn((directive as any)._inputEl.nativeElement, 'dispatchEvent');
 
     (directive as any)._updateInputEl(1);
