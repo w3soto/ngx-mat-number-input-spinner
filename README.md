@@ -94,6 +94,7 @@ Custom template
 
 | @Input | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
+| **disableRipple** | boolean | false | Whether ripples are disabled |
 | **autoDelay** | number | 500 | Delay timeout in milliseconds |
 | **autoRepeat** | number | 25 | Repeat interval in milliseconds |
 
