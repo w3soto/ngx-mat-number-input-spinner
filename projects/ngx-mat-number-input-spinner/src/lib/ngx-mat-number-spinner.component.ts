@@ -32,6 +32,15 @@ export class NgxMatNumberSpinner extends _NgxMatNumberSpinnerBase {
     this._autoRepeat = coerceNumberProperty(val, NGX_MAT_NUMBER_SPINNER_AUTO_REPEAT);
   }
 
+  @Input()
+  set disableRipple(val: any) {
+    this._disableRipple = coerceBooleanProperty(val);
+  }
+  get disableRipple(): boolean {
+    return this._disableRipple;
+  }
+  _disableRipple: boolean = false;
+
   @HostBinding('class.ngx-mat-number-spinner-disabled')
   private get _classDisabled(): boolean {
     return this._disabled;

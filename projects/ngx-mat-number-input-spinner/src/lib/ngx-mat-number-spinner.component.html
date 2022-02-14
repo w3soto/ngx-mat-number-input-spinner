@@ -6,7 +6,7 @@
     [class.ngx-mat-number-spinner-button-disabled]="disabled"
     [class.ngx-mat-number-spinner-button-readonly]="readonly"
     matRipple
-    [matRippleDisabled]="disabled"
+    [matRippleDisabled]="disabled || disableRipple"
     [disabled]="disabled"
     (mousedown)="mouseDown(1)"
     (mouseup)="mouseUp()"></button>
@@ -16,7 +16,7 @@
     [class.ngx-mat-number-spinner-button-disabled]="disabled"
     [class.ngx-mat-number-spinner-button-readonly]="readonly"
     matRipple
-    [matRippleDisabled]="disabled"
+    [matRippleDisabled]="disabled || disableRipple"
     [disabled]="disabled"
     (mousedown)="mouseDown(-1)"
     (mouseup)="mouseUp()"></button>
